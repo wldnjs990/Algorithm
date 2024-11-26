@@ -2,7 +2,6 @@ function solution(dirs) {
     let x = 5;
     let y = 5;
     const set = new Set()
-    const arr = []
     for(let i of dirs){
         if(i === "U"){
             if(y < 10) {
