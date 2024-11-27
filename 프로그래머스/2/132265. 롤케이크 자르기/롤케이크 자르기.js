@@ -11,8 +11,6 @@ function solution(topping) {
         if(nd.get(topping[i])){
             nd.set(topping[i], nd.get(topping[i]) - 1)
             if(nd.get(topping[i]) === 0) nd.delete(topping[i])
-        } else {
-            nd.set(topping[i], 1)
         }
         if(st.size === nd.size) count += 1
     }
