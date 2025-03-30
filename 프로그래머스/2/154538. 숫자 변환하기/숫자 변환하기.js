@@ -1,13 +1,22 @@
 function solution(x, y, n) {
-    const queue = [[y, 0]]
-    
-    while(queue.length){
-        const [y, count] = queue.shift()
-        if(y === x) return count
-        if(y % 3 === 0 && y / 3 >= x) queue.push([y / 3, count + 1])
-        if(y % 2 === 0 && y / 2 >= x) queue.push([y / 2, count + 1])
-        if(y - n >= x) queue.push([y - n, count + 1])
+    const queue = [[x, 0]];
+    let [l, r] = [0, 1];
+    let answer = Infinity;
+
+    const done = {};
+    while (l < r) {
+        const [num, count] = queue[l++];
+        if (done[num] || num > y) continue;
+        if (num === y) {
+            answer = Math.min(answer, count);
+            continue;
+        }
+        done[num] = true;
+
+        queue[r++] = [num * 3, count + 1];
+        queue[r++] = [num * 2, count + 1];
+        queue[r++] = [num + n, count + 1];
     }
-    
-    return -1
+
+    return answer === Infinity ? -1 : answer;
 }
