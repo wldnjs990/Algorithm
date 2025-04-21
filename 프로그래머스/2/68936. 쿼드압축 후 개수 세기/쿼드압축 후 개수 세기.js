@@ -3,6 +3,7 @@ function solution(arr) {
     
     function DFS(arr){
         const num = arr[0][0] === 0 ? 1 : 0;
+        // 쿼드압축 가능하면 yes가 true, 아니면 false
         let yes = true
         for(let i = 0; i < arr.length; i++){
             if(arr[i].includes(num)){
@@ -23,16 +24,16 @@ function solution(arr) {
                         four.push(nd)
                     }
                 })
-
                 DFS(one)
                 DFS(two)
                 DFS(three)
                 DFS(four)
+                // 쿼드압축 안될시 yes변수 false로 바꾸기
                 yes = false
                 break
             }
         }
-        // 쿼드압축 될 때
+        // 쿼드압축 될 때(yes가 true일때)
         if(yes){
             map[arr[0][0]] += 1
         }
