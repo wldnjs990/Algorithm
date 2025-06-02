@@ -1,15 +1,11 @@
 function solution(array, commands) {
     const result = []
-    commands.forEach(e=>{
-        const start = e[0] - 1
-        const end = e[1] - 1
-        const point = e[2] - 1
-        const slice = array.filter((e, idx)=>{
-            if(idx >= start && idx <= end){
-                return e
-            }
-        })
-        result.push(slice.sort((a, b) => a - b)[point])
-    })
+    for(let i = 0; i < commands.length; i++){
+        const now = commands[i]
+        const start = now[0] - 1
+        const num = now[1] - 1
+        const location = now[2] - 1
+        result.push(array.slice(start, num + 1).sort((a, b)=>a-b)[location])
+    }
     return result
 }
