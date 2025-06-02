@@ -1,18 +1,24 @@
 function solution(priorities, location) {
-    let result = 0
-    
+    const result = []
+    const indexArr = new Array(priorities.length).fill(0).map((_,idx)=> idx)
+    console.log(indexArr)
     while(priorities.length){
-        location -= 1
-        const max = Math.max(...priorities)
         const now = priorities.shift()
-        if(now === max) {
-            if(location === -1) {
-                return result + 1
+        const index = indexArr.shift()
+        
+        let isSmall = false
+        for(let i = 0; i < priorities.length; i++){
+            if(now < priorities[i]) {
+                isSmall = true
+                break;
             }
-            result += 1
-        } else {
-            priorities.push(now)
         }
-        if(location < 0) location = priorities.length - 1
+        if(isSmall) {
+            priorities.push(now)
+            indexArr.push(index)
+        } else {
+            result.push(index)
+        }
     }
+    return result.indexOf(location) + 1
 }
