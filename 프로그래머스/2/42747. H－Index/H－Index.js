@@ -1,7 +1,11 @@
 function solution(citations) {
-    let i = 0;
-    const sorted = citations.sort((a, b) => b - a)
-    while(i + 1 <= sorted[i]) i++;
-
-    return i;
+    const stack = []
+    citations.sort((a, b)=> a - b)
+    const n = citations.length
+    for(let i = 0; i < n; i++){
+        const h = citations[i]
+        const candidate = n - i
+        if(h >= candidate) stack.push(candidate)
+    }
+    return stack.length ? Math.max(...stack) : 0
 }
