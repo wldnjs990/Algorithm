@@ -1,20 +1,11 @@
 function solution(prices) {
-    let result = []
-    for(let idx = 0; idx < prices.length; idx++){
+    const queue = []
+    for(let i = 0; i < prices.length; i++){
         let count = 0
-        if(idx === prices.length - 1) {
-            result.push(0)
-            continue
+        while(i + count < prices.length - 1 && prices[i] <= prices[i + count]){
+            count += 1
         }
-        for(let next = idx + 1; next < prices.length; next++){
-            if(prices[idx] <= prices[next]) {
-                count += 1
-            } else {
-                count += 1
-                break
-            }
-        }
-        result.push(count)
+        queue.push(count)
     }
-    return result
+    return queue
 }
