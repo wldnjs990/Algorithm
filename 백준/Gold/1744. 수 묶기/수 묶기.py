@@ -28,7 +28,7 @@ input = sys.stdin.readline
 # 음수 ~ 0 까진 무조건 서로 곱하는게 이득
 # 양수는 무조건 큰 값들끼리 곱해주는게 이득
 # 음수 ~ 0와 양수가 1개씩 남았다면 그냥 더해주는게 이득
-# 그런데 1은 곱하지도, 더하지도 않는게 이득
+# 그런데 1은 곱하지말고 더하는게 이득(곱하면 오히려 1 손해임)
 # 수를 배열로 받아서 정렬
 # -1000 ~ 0까지의 배열 / 1 배열 / 2 ~ 1000까지의 배열 잘라주기
 # 음수, 양수 둘 다 절댓값 기준으로 큰 값들부터 서로 곱해주고, 1은 그냥 더해주기
@@ -38,12 +38,17 @@ from collections import deque
 N = int(input())
 
 num_arr = [int(input()) for _ in range(N)]
+# 정렬 먼저
 num_arr.sort()
 
+# -1000 ~ 0 배열
 minus_arr = deque()
+# 1 배열
 one_arr = deque()
+# 2 ~ 1000 배열
 plus_arr = deque()
 
+# 배열 나눠 담아주기
 for num in num_arr:
   if num <= 0:
     minus_arr.append(num)
@@ -52,10 +57,15 @@ for num in num_arr:
   else:
     plus_arr.append(num)
 
+# 2 ~ 1000은 순회하기 편하게 1000 ~ 2로 뒤집어주기
 plus_arr.reverse()
 
+# 1짜리 배열은 그냥 길이 더해주면 됨
 ans = len(one_arr)
 
+# 가장 작은 숫자부터 순회
+# 짝이 있으면 곱해서 ans에 더해주기
+# 짝이 없으면 그냥 더해주기
 while minus_arr:
   if len(minus_arr) >= 2:
     st = minus_arr.popleft()
@@ -64,6 +74,9 @@ while minus_arr:
   elif len(minus_arr) == 1:
     ans += minus_arr.popleft()
 
+# 가장 큰 숫자부터 순회
+# 짝이 있으면 곱해서 ans에 더해주기
+# 짝이 없으면 그냥 더해주기
 while plus_arr:
   if len(plus_arr) >= 2:
     st = plus_arr.popleft()
