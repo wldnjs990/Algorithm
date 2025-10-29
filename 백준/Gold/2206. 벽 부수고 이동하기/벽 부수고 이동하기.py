@@ -68,7 +68,5 @@ visited[0][0][0] = True
 deq = deque()
 deq.append([0, 0, 1, 1])
 
-res = bfs()
-
-print(res)
+print(bfs())
 
